@@ -18,9 +18,7 @@
                 action: function(element, data, node, config ){
                     var link = '${spring:mvcUrl("CC#form").build()}';
 
-                    var a = document.createElement('a');
-                    a.href = link;
-                    a.click();
+                    document.location.href = link;
                 }
             };
 
@@ -36,9 +34,7 @@
                     console.log(tr);
 
 
-                    var a = document.createElement('a');
-                    a.href = link;
-                    a.click();
+                    document.location.href = link;
 
 
                 }
@@ -80,83 +76,17 @@
                 <th>Celular</th>
             </thead>
             <tbody>
-                <tr id="1">
-                    <td>Fernando Willian</td>
-                    <td>388.036.778.79</td>
-                    <td>11 2423-2419</td>
-                    <td>11 9 6045-8507</td>
-                </tr>
 
-                <tr>
-                    <td>Fernando Willian</td>
-                    <td>388.036.778.79</td>
-                    <td>11 2423-2419</td>
-                    <td>11 9 6045-8507</td>
-                </tr>
+                <c:forEach items="${clients}" var="client">
 
-                <tr>
-                    <td>Fernando Willian</td>
-                    <td>388.036.778.79</td>
-                    <td>11 2423-2419</td>
-                    <td>11 9 6045-8507</td>
-                </tr>
-                <tr>
-                    <td>Fernando Willian</td>
-                    <td>388.036.778.79</td>
-                    <td>11 2423-2419</td>
-                    <td>11 9 6045-8507</td>
-                </tr>
-                <tr>
-                    <td>Fernando Willian</td>
-                    <td>388.036.778.79</td>
-                    <td>11 2423-2419</td>
-                    <td>11 9 6045-8507</td>
-                </tr>
-                <tr>
-                    <td>Fernando Willian</td>
-                    <td>388.036.778.79</td>
-                    <td>11 2423-2419</td>
-                    <td>11 9 6045-8507</td>
-                </tr>
-                <tr>
-                    <td>Fernando Willian</td>
-                    <td>388.036.778.79</td>
-                    <td>11 2423-2419</td>
-                    <td>11 9 6045-8507</td>
-                </tr>
-                <tr>
-                    <td>Fernando Willian</td>
-                    <td>388.036.778.79</td>
-                    <td>11 2423-2419</td>
-                    <td>11 9 6045-8507</td>
-                </tr>
-                <tr>
-                    <td>Fernando Willian</td>
-                    <td>388.036.778.79</td>
-                    <td>11 2423-2419</td>
-                    <td>11 9 6045-8507</td>
-                </tr>
-                <tr>
-                    <td>Fernando Willian</td>
-                    <td>388.036.778.79</td>
-                    <td>11 2423-2419</td>
-                    <td>11 9 6045-8507</td>
-                </tr>
-                <tr>
-                    <td>Fernando Willian</td>
-                    <td>388.036.778.79</td>
-                    <td>11 2423-2419</td>
-                    <td>11 9 6045-8507</td>
-                </tr>
+                    <tr id="${client.id}">
+                        <td>${client.name}</td>
+                        <td>${client.socialId}</td>
+                        <td>${client.telephone}</td>
+                        <td>${client.cellPhone}</td>
+                    </tr>
 
-                <tr>
-                    <td>Fernando Willian</td>
-                    <td>388.036.778.79</td>
-                    <td>11 2423-2419</td>
-                    <td>11 9 6045-8507</td>
-                </tr>
-
-
+                </c:forEach>
 
             </tbody>
         </table>

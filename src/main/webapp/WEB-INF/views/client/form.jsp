@@ -146,34 +146,34 @@
 
                     <div class="row form-group">
 
-                        <c:set var="address_streetHasError">
-                            <form:errors path="address.street" cssClass="pull-right text-danger"/>
+                        <c:set var="streetHasError">
+                            <form:errors path="street" cssClass="pull-right text-danger"/>
                         </c:set>
-                        <div class="col-md-8 ${not empty address_streetHasError? 'has-error' : ''}">
+                        <div class="col-md-8 ${not empty streetHasError? 'has-error' : ''}">
                             <label for="endereco">Endereço</label>
-                            <input id="endereco" name="address.street" type="text"  class="form-control">
-                            ${address_streetHasError}
+                            <input id="endereco" name="street" type="text"  class="form-control">
+                            ${streetHasError}
                         </div>
 
-                        <c:set var="address_numeberHasError">
-                            <form:errors path="address.number" cssClass="pull-right text-danger"/>
+                        <c:set var="numeberHasError">
+                            <form:errors path="number" cssClass="pull-right text-danger"/>
                         </c:set>
-                        <div class="col-md-4 ${not empty address_numeberHasError? 'has-error' : ''}">
+                        <div class="col-md-4 ${not empty numeberHasError? 'has-error' : ''}">
                             <label for="numero">Numero</label>
-                            <input id="numero" name="address.number" type="number" class="form-control" min="0">
-                            ${address_numeberHasError}
+                            <input id="numero" name="number" type="number" class="form-control" min="0">
+                            ${numeberHasError}
                         </div>
                     </div>
 
                     <div class="row form-group">
 
-                        <c:set var="address_complementHasError">
-                            <form:errors path="address.complement" cssClass="pull-right text-danger"/>
+                        <c:set var="complementHasError">
+                            <form:errors path="complement" cssClass="pull-right text-danger"/>
                         </c:set>
-                        <div class="col-md-12 ${not empty address_complementHasError? 'has-error' : ''}">
+                        <div class="col-md-12 ${not empty complementHasError? 'has-error' : ''}">
                             <label for="complemento">Complemento</label>
-                            <input id="complemento" name="address.complement" type="text" class="form-control">
-                            ${address_complementHasError}
+                            <input id="complemento" name="complement" type="text" class="form-control">
+                            ${complementHasError}
                         </div>
                     </div>
 
@@ -181,34 +181,34 @@
                     <div class="row form-group">
 
 
-                        <c:set var="address_zipCodeHasError">
-                            <form:errors path="address.zipCode" cssClass="pull-right text-danger"/>
+                        <c:set var="zipCodeHasError">
+                            <form:errors path="zipCode" cssClass="pull-right text-danger"/>
                         </c:set>
-                        <div class="col-md-4 ${not empty address_zipCodeHasError? 'has-error' : ''}">
+                        <div class="col-md-4 ${not empty zipCodeHasError? 'has-error' : ''}">
                             <label for="cep">CEP</label>
-                            <input id="cep" name="address.zipCode" type="text" class="form-control"
+                            <input id="cep" name="zipCode" type="text" class="form-control"
                                    data-inputmask-mask="99999-999" data-inputmask-removeMaskOnSubmit="true">
-                            ${address_zipCodeHasError}
+                            ${zipCodeHasError}
                         </div>
 
 
-                        <c:set var="address_stateCodeHasError">
-                            <form:errors path="address.state" cssClass="pull-right text-danger"/>
+                        <c:set var="stateCodeHasError">
+                            <form:errors path="state" cssClass="pull-right text-danger"/>
                         </c:set>
-                        <div class="col-md-4 ${not empty address_stateCodeHasError? 'has-error' : ''}">
+                        <div class="col-md-4 ${not empty stateCodeHasError? 'has-error' : ''}">
                             <label for="estado">Estado</label>
-                            <input id="estado" name="address.state" type="text" class="form-control">
-                            ${address_stateCodeHasError}
+                            <input id="estado" name="state" type="text" class="form-control">
+                            ${stateCodeHasError}
                         </div>
 
 
-                        <c:set var="address_cityCodeHasError">
-                            <form:errors path="address.city" cssClass="pull-right text-danger"/>
+                        <c:set var="cityCodeHasError">
+                            <form:errors path="city" cssClass="pull-right text-danger"/>
                         </c:set>
-                        <div class="col-md-4 ${not empty address_stateCodeHasError? 'has-error' : ''}">
+                        <div class="col-md-4 ${not empty stateCodeHasError? 'has-error' : ''}">
                             <label for="municipio">Municipio</label>
-                            <input id="municipio" name="address.city" type="text" class="form-control">
-                            ${address_cityCodeHasError}
+                            <input id="municipio" name="city" type="text" class="form-control">
+                            ${cityCodeHasError}
                         </div>
 
                     </div>
