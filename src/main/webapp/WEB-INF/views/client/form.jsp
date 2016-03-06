@@ -7,19 +7,23 @@
 <st:page>
     <jsp:attribute name="extraScrpits">
     </jsp:attribute>
-
     <jsp:body>
 
         <div class="col-md-offset-3 col-md-6">
 
             <form:form  action="${spring:mvcUrl('CC#save').build()}" method="post" commandName="client">
+
+
+                <input type="hidden" name="id" value="${client.id}">
+
                 <div class="row text-center">
                     <img id="foto"  class="img-thumbnail" width="171" height="180" src="http://placehold.it/171x180"/>
                 </div>
 
                 <c:set var="profileImagePathHasError">
-                    <form:errors path="profileImagePath"  cssClass="pull-right text-danger"/>
+                    <form:errors path="profileImagePath" cssClass="pull-right text-danger"/>
                 </c:set>
+
                 <div class="row ${not empty profileImagePathHasError? 'has-error' : ''}">
                     <input type="file"
                            class="filestyle"
@@ -27,13 +31,15 @@
                            data-buttonBefore="true"
                            data-iconname="glyphicon glyphicon-picture"
                            data-buttonname="btn btn-warning btn-block"
+                           data-placeholder="${not empty client.profileImagePath? client.profileImagePath: 'Nenhuma foto selecionada'}"
                            onchange="previewFileLoad(this, '#foto')"
                            name="profileImagePath"
-                    >
+                           value="${client.profileImagePath}"
+
+
+                    />
                     ${profileImagePathHasError}
                 </div>
-
-
 
                 <fieldset>
                     <legend>Cadastrais</legend>
@@ -41,10 +47,10 @@
                     <c:set var="nameHasError">
                         <form:errors path="name" cssClass="pull-right text-danger"/>
                     </c:set>
-                    <div class="row form-group ${not empty nameHasError? 'has-error' : ''}">
+                    <div class="row form-group ${not empty nameHasError? 'has-error': ''}">
                         <div class="col-md-12">
-                            <label for="nome"> Nome</label>
-                            <input id="nome" name="name" type="text" class="form-control">
+                            <label for="name"> Nome</label>
+                            <form:input  path="name" type="text" class="form-control"/>
                             ${nameHasError}
                         </div>
                     </div>
@@ -56,33 +62,32 @@
                     <div class="row form-group ${not empty emailHasError? 'has-error' : ''}">
                         <div class="col-md-12">
                             <label for="email"> Email</label>
-                            <input id="email" name="email" type="text" class="form-control">
+                            <form:input  path="email" type="text" class="form-control"/>
                             ${emailHasError}
                         </div>
                     </div>
 
 
+                    <c:set var="birthDateHasError">
+                        <form:errors path="birthDate" cssClass="pull-right text-danger"/>
+                    </c:set>
                     <div class="row form-group">
-                        <c:set var="birthDateHasError">
-                            <form:errors path="birthDate" cssClass="pull-right text-danger"/>
-                        </c:set>
                         <div class="col-md-6 ${not empty birthDateHasError? 'has-error' : ''}">
-                            <label for="dataNascimento"> Data Nascimento</label>
-                            <input id="dataNascimento" name="birthDate" type="date" class="form-control">
+                            <label for="birthDate"> Data Nascimento</label>
+                            <form:input path="birthDate" type="date" class="form-control"/>
                             ${birthDateHasError}
                         </div>
+
 
                         <c:set var="genderHasError">
                             <form:errors path="gender" cssClass="pull-right text-danger"/>
                         </c:set>
                         <div class="col-md-6 ${not empty genderHasError? 'has-error' : ''}">
-                            <label for="genero"> Sexo</label>
-                            <select id="genero" name="gender" class="selectpicker show-tick show-menu-arrow form-control" >
-                                <option value="" disabled selected>Selecione um gênero</option>
-                                <c:forEach items="${genders}" var="gender">
-                                    <option value="${gender}">${gender.value}</option>
-                                </c:forEach>
-                            </select>
+                            <label for="gender"> Sexo</label>
+                            <form:select path="gender"  cssClass="selectpicker show-tick show-menu-arrow form-control" >
+                                <form:option value="" disabled="true" selected="true">Selecione um gênero</form:option>
+                                <form:options items="${genders}" itemLabel="value"/>
+                            </form:select>
                             ${genderHasError}
                         </div>
 
@@ -94,9 +99,9 @@
                             <form:errors path="telephone" cssClass="pull-right text-danger"/>
                         </c:set>
                         <div class="col-md-6 ${not empty telephoneHasError? 'has-error' : ''}">
-                            <label for="telefone">Telefone</label>
-                            <input id="telefone" name="telephone" type="text"  class="form-control"
-                                   data-inputmask-mask="(99) 9999-9999" data-inputmask-removeMaskOnSubmit="true">
+                            <label for="telephone">Telefone</label>
+                            <form:input path="telephone" type="text"  class="form-control"
+                                   data-inputmask-mask="(99) 9999-9999" data-inputmask-removeMaskOnSubmit="true"/>
                             ${telephoneHasError}
                         </div>
 
@@ -105,11 +110,10 @@
                             <form:errors path="cellPhone" cssClass="pull-right text-danger"/>
                         </c:set>
                         <div class="col-md-6 ${not empty cellPhoneHasError? 'has-error' : ''}">
-                            <label for="celular">Celular</label>
-                            <input id="celular" name="cellPhone" type="text" class="form-control"
-                                   data-inputmask-mask="(99) [9]9999-9999" data-inputmask-removeMaskOnSubmit="true">
+                            <label for="cellPhone">Celular</label>
+                            <form:input path="cellPhone" type="text" class="form-control"
+                                   data-inputmask-mask="(99) [9]9999-9999" data-inputmask-removeMaskOnSubmit="true"/>
                             ${cellPhoneHasError}
-
                         </div>
 
                     </div>
@@ -118,23 +122,23 @@
                     <legend>Documentos</legend>
                     <div class="row">
 
+
                         <c:set var="identityDocumentHasError">
                             <form:errors path="identityDocument" cssClass="pull-right text-danger"/>
                         </c:set>
                         <div class="col-md-6 form-group ${not empty identityDocumentHasError? 'has-error' : ''}">
-                            <label for="rg"> RG</label>
-                            <input id="rg" name="identityDocument" type="text"  class="form-control">
+                            <label for="identityDocument"> RG</label>
+                            <form:input path="identityDocument" type="text"  class="form-control"/>
                             ${identityDocumentHasError}
                         </div>
-
 
                         <c:set var="socialIdHasError">
                             <form:errors path="socialId" cssClass="pull-right text-danger"/>
                         </c:set>
                         <div class="col-md-6 form-group ${not empty socialIdHasError? 'has-error' : ''}">
-                            <label for="cpf"> CPF</label>
-                            <input id="cpf" name="socialId" type="text"  class="form-control"
-                                   data-inputmask-mask="999.999.999-99" data-inputmask-removeMaskOnSubmit="true">
+                            <label for="socialId"> CPF</label>
+                            <form:input path="socialId" type="text"  class="form-control"
+                                   data-inputmask-mask="999.999.999-99" data-inputmask-removeMaskOnSubmit="true"/>
                             ${socialIdHasError}
                         </div>
                     </div>
@@ -150,17 +154,18 @@
                             <form:errors path="street" cssClass="pull-right text-danger"/>
                         </c:set>
                         <div class="col-md-8 ${not empty streetHasError? 'has-error' : ''}">
-                            <label for="endereco">Endereço</label>
-                            <input id="endereco" name="street" type="text"  class="form-control">
+                            <label for="street">Endereço</label>
+                            <form:input path="street" type="text"  class="form-control"/>
                             ${streetHasError}
                         </div>
+
 
                         <c:set var="numeberHasError">
                             <form:errors path="number" cssClass="pull-right text-danger"/>
                         </c:set>
                         <div class="col-md-4 ${not empty numeberHasError? 'has-error' : ''}">
-                            <label for="numero">Numero</label>
-                            <input id="numero" name="number" type="number" class="form-control" min="0">
+                            <label for="number">Numero</label>
+                            <form:input path="number" type="number" class="form-control" min="0"/>
                             ${numeberHasError}
                         </div>
                     </div>
@@ -171,8 +176,8 @@
                             <form:errors path="complement" cssClass="pull-right text-danger"/>
                         </c:set>
                         <div class="col-md-12 ${not empty complementHasError? 'has-error' : ''}">
-                            <label for="complemento">Complemento</label>
-                            <input id="complemento" name="complement" type="text" class="form-control">
+                            <label for="complement">Complemento</label>
+                            <form:input path="complement" type="text" class="form-control"/>
                             ${complementHasError}
                         </div>
                     </div>
@@ -180,14 +185,13 @@
 
                     <div class="row form-group">
 
-
                         <c:set var="zipCodeHasError">
                             <form:errors path="zipCode" cssClass="pull-right text-danger"/>
                         </c:set>
                         <div class="col-md-4 ${not empty zipCodeHasError? 'has-error' : ''}">
-                            <label for="cep">CEP</label>
-                            <input id="cep" name="zipCode" type="text" class="form-control"
-                                   data-inputmask-mask="99999-999" data-inputmask-removeMaskOnSubmit="true">
+                            <label for="zipCode">CEP</label>
+                            <form:input path="zipCode" type="text" class="form-control"
+                                   data-inputmask-mask="99999-999" data-inputmask-removeMaskOnSubmit="true"/>
                             ${zipCodeHasError}
                         </div>
 
@@ -196,19 +200,19 @@
                             <form:errors path="state" cssClass="pull-right text-danger"/>
                         </c:set>
                         <div class="col-md-4 ${not empty stateCodeHasError? 'has-error' : ''}">
-                            <label for="estado">Estado</label>
-                            <input id="estado" name="state" type="text" class="form-control">
+                            <label for="state">Estado</label>
+                            <form:input path="state" type="text" class="form-control"/>
                             ${stateCodeHasError}
                         </div>
 
 
-                        <c:set var="cityCodeHasError">
+                        <c:set var="stateCodeHasError">
                             <form:errors path="city" cssClass="pull-right text-danger"/>
                         </c:set>
                         <div class="col-md-4 ${not empty stateCodeHasError? 'has-error' : ''}">
-                            <label for="municipio">Municipio</label>
-                            <input id="municipio" name="city" type="text" class="form-control">
-                            ${cityCodeHasError}
+                            <label for="city">Municipio</label>
+                            <form:input path="city" type="text" class="form-control"/>
+                            ${stateCodeHasError}
                         </div>
 
                     </div>

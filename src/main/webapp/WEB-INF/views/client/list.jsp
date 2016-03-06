@@ -29,10 +29,8 @@
                 action: function(element, data, node, config ){
                     var selected = dt.rows({selected: true});
                     var tr = selected.nodes()[0];
-                    var id = tr.getAttribute("id")
+                    var id = tr.getAttribute("id");
                     var link = 'client/delete/' + id;
-                    console.log(tr);
-
 
                     document.location.href = link;
 
@@ -43,9 +41,14 @@
 
             var buttonUpdate = {
                 text: 'Editar <span class="fa fa-refresh"/>',
-                titleAttr: 'Excluir',
+                titleAttr: 'Editar',
                 action: function(element, data, node, config ){
-                    $("#form").modal();
+                    var selected = dt.rows({selected: true});
+                    var tr = selected.nodes()[0];
+                    var id = tr.getAttribute("id");
+                    var link = 'client/' + id;
+
+                    document.location.href = link;
                 }
             };
 
