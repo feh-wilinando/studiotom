@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,32 +26,45 @@ public class ClientController {
     @Autowired
     private ClientDAO clientDAO;
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ModelAndView edit(@PathVariable Integer id){
+
+        Client client = clientDAO.findById(id);
+
+
+        return form(client);
+    }
+
+
     @RequestMapping(value = "/new",method = RequestMethod.GET)
-    public ModelAndView form(){
+    public ModelAndView form(Client client){
         ModelAndView view = new ModelAndView("client/form");
         view.addObject("genders", Gender.values());
+        view.addObject("client", client);
         return view;
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView list() {
-        return new ModelAndView("client/list");
+
+        ModelAndView view = new ModelAndView("client/list");
+        view.addObject("clients", clientDAO.list());
+
+        return view;
     }
 
 
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save(@Valid @ModelAttribute("client") Client client, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public ModelAndView save(@Valid Client client, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 
         if (bindingResult.hasErrors()){
             System.out.println(client);
-            return form();
+            return form(client);
         }
 
-        System.out.println(client);
-
-//        clientDAO.save(client);
+        clientDAO.save(client);
 
         ModelAndView view = new ModelAndView("redirect:/client");
         redirectAttributes.addFlashAttribute("registrationNotification", "Cliente adicionado com sucesso.");
@@ -60,10 +72,15 @@ public class ClientController {
         return view;
     }
 
+    @Transactional
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
-    public ModelAndView delete(@PathVariable("id") Integer id) {
+    public ModelAndView delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
         ModelAndView view = new ModelAndView("redirect:/client");
-        System.out.println("ID:" + id);
+
+        clientDAO.remove(id);
+
+        redirectAttributes.addFlashAttribute("registrationNotification", "Cliente excluido com sucesso.");
+
         return view;
     }
 
