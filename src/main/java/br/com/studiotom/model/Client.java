@@ -45,7 +45,7 @@ public class Client {
     @NotBlank @CPF
     private String      socialId;
 
-    @NotBlank
+
     private String      profileImagePath;
 
     @NotBlank @Email
