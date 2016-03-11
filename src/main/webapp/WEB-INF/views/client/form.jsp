@@ -11,13 +11,13 @@
 
         <div class="col-md-offset-3 col-md-6">
 
-            <form:form  action="${spring:mvcUrl('CC#save').build()}" method="post" commandName="client">
-
+            <form:form  action="${spring:mvcUrl('CC#save').build()}" method="post" commandName="client" enctype="multipart/form-data">
 
                 <input type="hidden" name="id" value="${client.id}">
+                <input type="hidden" name="profileImagePath" value="${client.profileImagePath}">
 
                 <div class="row text-center">
-                    <img id="foto"  class="img-thumbnail" width="171" height="180" src="http://placehold.it/171x180"/>
+                    <img id="foto"  class="img-thumbnail" width="171" height="180" src="${not empty client.profileImagePath? client.profileImagePath :"http://placehold.it/171x180"}"/>
                 </div>
 
                 <c:set var="profileImagePathHasError">
@@ -31,12 +31,9 @@
                            data-buttonBefore="true"
                            data-iconname="glyphicon glyphicon-picture"
                            data-buttonname="btn btn-warning btn-block"
-                           data-placeholder="${not empty client.profileImagePath? client.profileImagePath: 'Nenhuma foto selecionada'}"
+                           data-placeholder="Selecione uma foto"
                            onchange="previewFileLoad(this, '#foto')"
-                           name="profileImagePath"
-                           value="${client.profileImagePath}"
-
-
+                           name="profileImg"
                     />
                     ${profileImagePathHasError}
                 </div>
