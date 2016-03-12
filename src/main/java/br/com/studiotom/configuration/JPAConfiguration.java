@@ -2,7 +2,6 @@ package br.com.studiotom.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -20,30 +19,21 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class JPAConfiguration {
 
+
+
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(DataSource dataSource){
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(DataSource dataSource, Properties aditionalProperties){
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
 
         entityManagerFactory.setPackagesToScan("br.com.studiotom");
         entityManagerFactory.setDataSource(dataSource);
         entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        entityManagerFactory.setJpaProperties(additionalProperties());
+        entityManagerFactory.setJpaProperties(aditionalProperties);
 
 
         return entityManagerFactory;
     }
 
-    @Bean
-    public DataSource dataSource(){
-        DriverManagerDataSource driverManager = new DriverManagerDataSource();
-
-        driverManager.setDriverClassName("com.mysql.jdbc.Driver");
-        driverManager.setUrl("jdbc:mysql://localhost:3306/studiotom");
-        driverManager.setUsername("root");
-        driverManager.setPassword("");
-
-        return driverManager;
-    }
 
 
 
@@ -54,15 +44,6 @@ public class JPAConfiguration {
         return transactionManager;
     }
 
-    private Properties additionalProperties() {
-        Properties properties = new Properties();
-
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
-        properties.setProperty("hibernate.show_sql", "true");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
-
-        return properties;
-    }
 
 
 }
