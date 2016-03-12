@@ -125,11 +125,18 @@
         </dependency>
 
         <!--Connector-Driver for JPA-->
-        <dependency>
+        <dependency> <!--Dev-->
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.38</version>
         </dependency>
+
+        <dependency> <!--Production-->
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4.1208.jre7</version>
+        </dependency>
+
 
         <!-- Logging -->
         <dependency>
